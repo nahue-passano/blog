@@ -1,0 +1,4 @@
+baseURL = 'https://nahue-passano.github.io/'
+languageCode = 'en-us'
+title = 'nahue-passano Blog'
+theme = 'LoveIt'
