@@ -1,17 +1,19 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>nahue-passano Blog</title>
-        <link>http://localhost:1313/</link>
+        <title></title>
+        <link>http://localhost:1313/blog/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 01 Apr 2024 01:06:37 -0300</lastBuildDate>
-            <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>nahue.passano@gmail.com (Nahuel Passano)</managingEditor>
+            <webMaster>nahue.passano@gmail.com (Nahuel Passano)</webMaster><lastBuildDate>Mon, 01 Apr 2024 01:06:37 -0300</lastBuildDate>
+            <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>Lampton</title>
-    <link>http://localhost:1313/posts/lampton/</link>
+    <title>Introduction to Transmission Matrices</title>
+    <link>http://localhost:1313/blog/posts/intro_to_transmission_matrices/</link>
     <pubDate>Mon, 01 Apr 2024 01:06:37 -0300</pubDate>
-    <author>Author</author>
-    <guid>http://localhost:1313/posts/lampton/</guid>
-    <description><![CDATA[Hola como va la puta madre]]></description>
+    <author>Nahuel Passano</author>
+    <guid>http://localhost:1313/blog/posts/intro_to_transmission_matrices/</guid>
+    <description><![CDATA[Introducción a matrices de transmisión Cuadripolos Las matrices de transmisión surgen a partir de las ecuaciones que caracterízan a los cuadripolos. De forma general, la matriz que caracteriza la transmisión de un cuadripolo se puede definir como:
+$$ T =\begin{bmatrix} t_{11} & t_{12} \\ t_{21} & t_{22} \end{bmatrix} $$ donde cada uno de los valores de la matriz $T$ representa una relación especifica entre la entrada y la salida del cuadripolo.]]></description>
 </item>
 </channel>
 </rss>

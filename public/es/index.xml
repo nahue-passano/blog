@@ -1,0 +1,10 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title></title>
+        <link>http://localhost:1313/blog/es/</link>
+        <description>This is my cool site</description>
+        <generator>Hugo -- gohugo.io</generator><language>es</language><managingEditor>nahue.passano@gmail.com (Nahuel Passano)</managingEditor>
+            <webMaster>nahue.passano@gmail.com (Nahuel Passano)</webMaster>
+            <atom:link href="http://localhost:1313/blog/es/index.xml" rel="self" type="application/rss+xml" />
+        </channel>
+</rss>
