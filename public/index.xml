@@ -12,8 +12,9 @@
     <pubDate>Mon, 01 Apr 2024 01:06:37 -0300</pubDate>
     <author>Nahuel Passano</author>
     <guid>http://localhost:1313/blog/posts/intro_to_transmission_matrices/</guid>
-    <description><![CDATA[Introducción a matrices de transmisión Cuadripolos Las matrices de transmisión surgen a partir de las ecuaciones que caracterízan a los cuadripolos. De forma general, la matriz que caracteriza la transmisión de un cuadripolo se puede definir como:
-$$ T =\begin{bmatrix} t_{11} & t_{12} \\ t_{21} & t_{22} \end{bmatrix} $$ donde cada uno de los valores de la matriz $T$ representa una relación especifica entre la entrada y la salida del cuadripolo.]]></description>
+    <description><![CDATA[This blog aims to introduce the concept and use of matrices that characterize two-port networks from a programmatic perspective. First, a theoretical and conceptual review is carried out, and then the development made with code is emulated, working symbolically and vectorially.
+Two-port network Transmission matrices arise from the equations that characterize two-port networks. In general, the matrix that characterizes the transmission of a two-port network can be defined as::
+$$ T =\begin{bmatrix} t_{11} & t_{12} \\ t_{21} & t_{22} \end{bmatrix} $$ where each value in the matrix $T$ represents a specific relationship between the input and output of the two-port network.]]></description>
 </item>
 </channel>
 </rss>

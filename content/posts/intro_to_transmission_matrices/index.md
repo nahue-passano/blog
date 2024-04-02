@@ -3,10 +3,10 @@ title: 'Introduction to Transmission Matrices'
 date: 2024-04-01T01:06:37-03:00
 ---
 
-# Introducción a matrices de transmisión
+This blog aims to introduce the concept and use of matrices that characterize two-port networks from a programmatic perspective. First, a theoretical and conceptual review is carried out, and then the development made with code is emulated, working symbolically and vectorially.
 
-## Cuadripolos
-Las matrices de transmisión surgen a partir de las ecuaciones que caracterízan a los cuadripolos. De forma general, la matriz que caracteriza la transmisión de un cuadripolo se puede definir como:
+## Two-port network
+Transmission matrices arise from the equations that characterize two-port networks. In general, the matrix that characterizes the transmission of a two-port network can be defined as::
 
 <div>
 $$
@@ -17,7 +17,7 @@ $$
 $$
 </div>
 
-donde cada uno de los valores de la matriz $T$ representa una relación especifica entre la entrada y la salida del cuadripolo.
+where each value in the matrix $T$ represents a specific relationship between the input and output of the two-port network.
 
 <div>
 $$
@@ -30,12 +30,11 @@ $$
 $$
 </div>
 
+As can be observed, there are two conditions under which the elements are specified:
 
-Como se puede ver, hay dos condiciones sobre las cuales se especifican los elementos.
-- $v_{out} = 0$: Significa que la tensión de salida es nula, por lo que los conectores de salida estan cortocircuitados.
-- $i_{out} = 0$: Significa que la corriente de salida es nula, por lo que los conectores de salida estan abiertos.
-
-Dicha matriz nos dice como obtener las variables de entrada en función de las variables de salida:
+$v_{out} = 0$: This indicates that the output voltage is zero, hence the output connectors are short-circuited.
+$i_{out} = 0$: This implies that the output current is zero, thus the output connectors are open-circuited.
+This matrix informs us about how to obtain the input variables in terms of the output variables:
 
 <div>
 $$
@@ -69,7 +68,7 @@ $$
 $$
 </div>
 
-Por lo que para obtener los variables de salida en función de las variables de entrada, debemos invertir la matriz de transmisión y aplicarla a las variables de entrada.
+Therefore, to obtain the output variables in terms of the input variables, we must invert the transmission matrix and apply it to the input variables (As long as the determinant of $T$ is different from 0).
 
 <div>
 $$
@@ -113,11 +112,32 @@ $$
 $$
 </div>
 
-## Matrices de transmisión
 
-Cada componente que compone un circuito (ya sea eléctrico, mecánico o acústico) tiene su representación a través de un cuadripolo en forma matricial. De forma general, la representación matricial se diferencia si los componentes son de impedancia, admitancia o transformación.
+Moreover, to find the input or output impedance of the system through its respective transmission matrix, a load $Z_L$ is considered at the port opposite to the port being analyzed:
 
-**Matriz de transmisión de una impedancia ($T_Z$)**
+<div>
+$$
+Z_{in} = \frac{t_{11}\cdot Z_L + t_{12}}{t_{21}\cdot Z_L + t_{22}}
+$$
+
+$$
+Z_{out} = \frac{t_{22}\cdot Z_L + t_{12}}{t_{21}\cdot Z_L + t_{11}}
+$$
+</div>
+
+With the equations for the output voltage in terms of the input magnitudes and the input impedance, we can derive the formula to calculate the output voltage $v_{out}$ as a function of the input voltage and impedance.
+
+<div>
+$$
+v_{out} = t_{22} \cdot v_{in} - t_{12} \cdot i_{in} = t_{22} \cdot v_{in} - t_{12} \cdot \frac{v_{in}}{Z_{in}} = \Big ( t_{22} - \frac{t_{12}}{Z_{in}} \Big ) v_{in}
+$$
+</div>
+
+## Transmission matrices
+
+Each component within a circuit has its representation through a two-port network in matrix form. Generally, the matrix representation differs based on whether the components are impedance, admittance, or transformer-based.
+
+**Series Impedance transmission matrix ($T_Z$)**
 <div>
 $$
 T_Z =
@@ -128,7 +148,7 @@ T_Z =
 $$
 </div>
 
-**Matriz de transmisión de una admitancia ($T_Y$)**
+**Parallel Admittance transmission matrix ($T_Y$)**
 <div>
 $$
 T_Y =
@@ -139,7 +159,7 @@ T_Y =
 $$
 </div>
 
-**Matriz de transmisión de un transformador ($T_T$)**
+**Transformer transmission matrix ($T_T$)**
 <div>
 $$
 T_T =
@@ -150,7 +170,7 @@ T_T =
 $$
 </div>
 
-**Matriz de transmisión de un girador ($T_G$)**
+**Gyrator transmission matrix ($T_G$)**
 <div>
 $$
 T_G =
@@ -161,18 +181,27 @@ T_G =
 $$
 </div>
 
-## Ejemplo 1: Divisor de tensión
+Finally, the total transfer function of a system is obtained by successively multiplying the transmission matrices of each element. In general, for a system composed of $N$ elements, its transmission matrix will be:
 
-Supongamos que vamos a analizar el siguiente divisor resistivo a través de las matrices de transmisión de cada componente para así obtener la transmisión total del sistema.
+<div>
+$$
+T = \prod_{i=1}^{N} T_i
+$$
+</div>
+
+## Example 1: Voltage Divider
+
+Let's consider analyzing the following resistive divider through the transmission matrices of each component to obtain the total transmission of the system.
 
 <p align="center">
   <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Resistive_divider.png" width="30%">
 
 </p>
 
-La idea es obtener una ecuación que relacione las magnitudes de salida (tensión y corriente de salida) en función de las magnitudes de entrada (tensión y corriente de entrada).
 
-Primero se deben definir las matrices de ambos elementos. En este caso, $R_1$ está en serie, pero $R_2$ está en paralelo a la salida, por lo que su matriz de transmisión debe ser del tipo admitancia.
+The idea is to obtain an equation that relates the output quantities (output voltage and output current) in terms of the input quantities (input voltage and input current).
+
+First, we need to define the matrices for both elements. In this case, $R_1$ is in series, but $R_2$ is in parallel with the output, so its transmission matrix should be of the admittance type.
 
 <div>
 $$
@@ -194,7 +223,7 @@ $$
 $$
 </div>
 
-Realizando la multiplicación sucesiva de matrices de transmisión, la transferencia total será:
+By performing the successive multiplication of transmission matrices, the total transfer will be:
 
 <div>
 $$
@@ -216,7 +245,7 @@ $$
 $$
 </div>
 
-Recordando las ecuaciones descritas anteriormente, la relación entre las magnitudes de entrada y salida queda:
+Based on the previously described equations, the relationship between the input and output magnitudes becomes:
 
 <div>
 $$
@@ -250,7 +279,7 @@ $$
 $$
 </div>
 
-Pero lo que nos importa en la mayoría de los casos, es obtener las magnitudes de salida en función de las de entrada, por lo que:
+However, in most cases, what we care about is obtaining the output magnitudes as a function of the input magnitudes, so:
 
 <div>
 $$
@@ -267,7 +296,7 @@ $$
 $$
 </div>
 
-Ahora si podemos obtener la tensión y corriente de salida en función de la tensión y corriente de entrada.
+Now we can obtain the output voltage and current as a function of the input voltage and current.
 
 <div>
 $$
@@ -308,9 +337,9 @@ $$
 $$
 </div>
 
-En Python todo este cálculo se puede hacer de forma simbólica con la libraría sympy
+In Python, all this calculation can be done in several ways. One of them is using symbolic computation with the sympy library.
 
-1) Se definen los simbolos a utilizar y se generan las matrices de transmision para los elementos del circuito.
+1) The symbols to be used are defined and the transmission matrices for the circuit elements are generated.
 
     ```python
     import sympy as sp
@@ -328,7 +357,7 @@ En Python todo este cálculo se puede hacer de forma simbólica con la libraría
         )
     ```
 
-2) Se calcula la transmisión total haciendo la multiplicación sucesiva de matrices.
+2) The total transmission is calculated by the successive multiplication of matrices.
 
     ```python
     # Total transmission matrix
@@ -344,20 +373,20 @@ En Python todo este cálculo se puede hacer de forma simbólica con la libraría
     display(voltage_gain_response)
     ```
 
-3) Multiplicando la matriz de transmisión inversa por las magnitudes de entrada queda:
+3) Multiplying the inverse transmission matrix by the input magnitudes gives:
     
     ```python
     v_in, i_in = sp.symbols('v_in i_in')
     output = inverse_total_tmatrix * sp.Matrix([v_in, i_in])
     ```
 
-## Ejemplo 2: Filtro pasabanda
+## Example 2: Band-pass filter
 
 <p align="center">
   <img src="https://www.researchgate.net/profile/Jonathan-Estevez-Fernandez/publication/312549075/figure/fig3/AS:452414026326019@1484875317721/Figura-5-Filtro-pasa-banda.png" width="70%">
 </p>
 
-1) Se definen los simbolos a utilizar y se generan las matrices de transmision para los elementos del circuito.
+1) The symbols to be used are defined and the transmission matrices for the circuit elements are generated.
 
     ```python
     import sympy as sp
@@ -385,7 +414,7 @@ En Python todo este cálculo se puede hacer de forma simbólica con la libraría
     )
     ```
 
-2) Se calcula la transmisión total haciendo la multiplicación sucesiva de matrices. En este caso, se busca la respuesta en magnitud y fase de la tensión del sistema, por lo que debemos obtener la experesión de la ganancia de tensión a partir de la matriz de transmisión.
+2) The total transmission is calculated by the successive multiplication of matrices. In this case, the magnitude and phase response of the system voltage is sought, so the expression for the voltage gain must be obtained from the transmission matrix.
 
     ```python
     # Total transmission matrix
@@ -401,7 +430,7 @@ En Python todo este cálculo se puede hacer de forma simbólica con la libraría
     display(voltage_gain_response)
     ```
 
-3) Para visualizar la respuesta del sistema, primero debemos seleccionar valores para los componentes, en este caso se propone utilizar:
+3) To visualize the response of the system, we must first select values for the components, in this case it is proposed to use:
 
     <div>
     $$
@@ -414,7 +443,7 @@ En Python todo este cálculo se puede hacer de forma simbólica con la libraría
     $$
     </div>
 
-    A su vez, se debe seleccionar un rango de frecuencias a representar, y en función de dicho vector de frecuencias, generar las impedancias en función de la frecuencia de cada componente
+    In turn, a range of frequencies to be represented must be selected, and based on this frequency vector, the impedances must be generated as a function of the frequency for each component.
 
     ```python
     # Components settings
@@ -426,7 +455,7 @@ En Python todo este cálculo se puede hacer de forma simbólica con la libraría
     # Frequency settings
     freq_min = 10
     freq_max = 10_000
-    freq_bins = 2000
+    freq_bins = 2048
 
     # Frequency arrays
     freq_array = np.logspace(np.log10(freq_min), np.log10(freq_max), num=freq_bins)
@@ -439,7 +468,7 @@ En Python todo este cálculo se puede hacer de forma simbólica con la libraría
     X_C2_array = 1/(1j*C2_value*angular_freq_array)
     ```
 
-4) Por último, se debe reemplazar los valores simbolicos de la expresión de ganancia por los vectores de impedancia generados.
+4) Finally, the symbolic values of the gain expression must be replaced by the generated impedance vectors.
 
     ```python
     # Voltage gain array initialization
@@ -459,7 +488,7 @@ En Python todo este cálculo se puede hacer de forma simbólica con la libraría
         voltage_gain_array[i] = voltage_gain_i
     ```
 
-5) Para visualizar la respuesta, se recomienda convertir la respuesta en magnitud del sistema a dB, y el eje de frecuencias configurarlo en escala logarítmica.
+5) To visualize the response, it is recommended to convert the response of the system magnitude in dB, and to configure the frequency axis in logarithmic scale.
 
     ```python
     from matplotlib import pyplot as plt
@@ -496,36 +525,34 @@ En Python todo este cálculo se puede hacer de forma simbólica con la libraría
 
     {{< figure src="images/bandpass-response.png" >}}
 
-## Ejemplo 3: Filtro resonante
+## Example 3: RLC filter
 
 <p align="center">
   <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/14/RLC_series_band-pass.svg/1280px-RLC_series_band-pass.svg.png" alt="descripcion" width="50%">
 </p>
 
+So far everything is working great, but there is a not insignificant aspect of all the previous processing that is quite annoying when experimenting with the tool, and that is the execution time and computational cost.
 
+As can be seen in the previous cells, replacing the values frequency by frequency in the symbolic expression takes a long time (30 seconds on average (it's a lot)).
 
-Hasta ahora funciona todo espectacular, pero hay un aspecto no menor de todo el procesamiento anterior que es bastante molesto a la hora de experimentar con la herramienta, y es el tiempo de ejecución y costo computacional.
+This is because sympy is a very good tool for working with mathematical expressions, but it is not optimized for vector calculation. Instead, working with libraries like NumPy ensures higher performance since most of its source code is written in low-level languages such as C [\[1\]](https://stackoverflow.com/questions/45796747/)
 
-Como se puede observar en las celdas anteriores, el reemplazo de los valores frecuencia a frecuencia en la expresión simbólica toma mucho tiempo (30 segundos en promedio (es un monton)). 
+For the resonant circuit, we will approach the resolution in a vectorized way with NumPy.
 
-Esto se debe a que sympy es una muy buena herramienta para trabajar con expresiones matemáticas, pero no está optimizada para el cálculo vectorial. En cambio, trabajar con librerías como NumPy garantiza un mayor rendimiento ya que la mayoría de su código fuente está escrito en lenguajes de bajo nivel como C [(Referencia)](https://stackoverflow.com/questions/45796747/are-sympy-matrices-really-that-slow)
-
-Para el circuito resonante, vamos a encarar la resolución de forma vectorizada con NumPy.
-
-1) Ahora, al trabajar de forma vectorizada, ya no podremos inicializar un objeto simbolico y luego reemplazar valores, si no que la inicialización de las matrices debe ser con los valores de las impedancias frecuencia a frecuencia. Por lo tanto, cambia el orden en el que se definen las variables. Ahora, lo primero que debemos definir es el vector de frecuencia, en conjunto con los bines en frecuencia que queremos representar.
+1) Now, when working in a vectorized way, we won't be able to initialize a symbolic object and then replace values, but rather the initialization of the matrices must be with the values of the impedances frequency by frequency. Therefore, change the order in which the variables are defined. Now, the first thing we must define is the frequency vector, together with the frequency bins we want to represent.
 
     ```python
     import numpy as np
 
     freq_min = 10
     freq_max = 100_000
-    freq_bins = 2000
+    freq_bins = 2048
 
     freq_array = np.logspace(np.log10(freq_min), np.log10(freq_max), num=freq_bins)
     angular_freq_array = 2 * np.pi * freq_array
     ```
 
-2) Luego, debemos decidir que valores tendrán los componentes del circuito y generar los vectores de impedancia en función de la frecuencia para cada uno. En este caso se adoptan los siguientes valores:
+2) Then, we must decide on the values that the circuit components will have and generate the impedance vectors as a function of frequency for each one. In this case, we adopt the following values:
 
     <div>
     $$
@@ -547,7 +574,7 @@ Para el circuito resonante, vamos a encarar la resolución de forma vectorizada 
     X_C_array = 1/(1j*angular_freq_array*C_value) 
     ```
 
-3) Una vez definidas las impedancias, se conforman las matrices de transmisión de cada elemento. Para operar de forma vectorizada, ahora las matrices serán de:
+3) Once the impedances are defined, the transmission matrices of each element are formed. To operate in a vectorized way, the matrices will now have a shape of:
 
     <div>
     $$
@@ -574,9 +601,9 @@ Para el circuito resonante, vamos a encarar la resolución de forma vectorizada 
     print(R_tmatrix.shape)
     ```
 
-4) Hasta este momento no hay mucha diferencia, pero ahora es cuando se complica (un poco) la cuestión. A la hora de hacer el producto matricial, ya no puedo usar métodos integrados a NumPy porque la multiplicación que necesitamos hacer no es muy común. Recordando que la multiplicación matricial entre dos matrices se puede hacer si la dimensión última dimensión de la primer matriz es igual a la primer dimensión de la segunda matriz, en este caso estamos al horno, porque todas las matrices de transmisión serán de $(2\times 2 \times \texttt{freq bins})$.
+4) Up to this point, there isn't much difference, but now is when the issue gets a bit complicated. When it comes to doing the matrix product, I can no longer use built-in NumPy methods because the multiplication we need to do is not very common. Remembering that matrix multiplication between two matrices can be done if the last dimension of the first matrix is equal to the first dimension of the second matrix, in this case, we're stuck, because all the transmission matrices will be of $(2\times 2 \times \texttt{freq bins})$.
 
-    Para solucionar este problema, vamos a crear un producto que lo llamaremos "Layer-Wise Dot Product", ya que estaremos haciendo el producto matricial (Dot product) por capas (Layer-Wise), es decir, vamos a calcular el producto para cada bin de frecuencia.
+    To solve this problem, we will create a product that we will call "Layer-Wise Dot Product", since we will be performing the matrix product (Dot product) layer by layer, that is, we will calculate the product for each frequency bin.
 
     ```python
     def layer_wise_dot_product(*matrices: np.ndarray) -> np.ndarray:
@@ -607,7 +634,7 @@ Para el circuito resonante, vamos a encarar la resolución de forma vectorizada 
         return result
     ```
 
-    Ahora si podemos obtener la transferencia haciendo la multiplicación sucesiva de las matrices de transmisión. La desventaja de trabajar de forma vectorizada y no simbolica, es que no tenemos la capacidad de visualizar las ecuaciones en función de los componentes, ahora simplemente observaremos una matriz compleja.
+    Now we can obtain the transfer function by successively multiplying the transmission matrices. The disadvantage of working in a vectorized way rather than symbolically is that we don't have the ability to visualize the equations in terms of the components; now we will simply observe a complex matrix.
 
     ```python
     total_tmatrix = layer_wise_dot_product(X_C_tmatrix, X_L_tmatrix, R_tmatrix)
@@ -615,7 +642,7 @@ Para el circuito resonante, vamos a encarar la resolución de forma vectorizada 
     display(total_tmatrix.shape, total_tmatrix)
 
     # Output:
-    (2, 2, 2000)
+    (2, 2, 2048)
     array([[[1.  -1591.54314773j, 1.  -1584.22696366j, 1.  -1576.9444109j ,
          ..., 1.    +62.09489201j, 1.    +62.38313291j,
          1.    +62.67269813j],
@@ -631,13 +658,13 @@ Para el circuito resonante, vamos a encarar la resolución de forma vectorizada 
          1.     +0.j        ]]])
 
     ```
-5) Para graficar la respuesta de tensión en magnitud y fase del sistema, debemos obtener el array que representa la ganancia de tensión
+5) To plot the voltage response in magnitude and phase of the system, we need to obtain the array representing the voltage gain.
 
     ```python
     voltage_gain_array = 1/total_tmatrix[0, 0, :]
     ```
 
-6) Al igual que el ejemplo anterior, se recomienda convertir la respuesta en magnitud del sistema a dB, y el eje de frecuencias configurarlo en escala logarítmica.
+6) Similarly to the previous example, it is recommended to convert the system's magnitude response to dB, and configure the frequency axis in a logarithmic scale.
 
     ```python
     from matplotlib import pyplot as plt
@@ -673,3 +700,68 @@ Para el circuito resonante, vamos a encarar la resolución de forma vectorizada 
     ```
 
     {{< figure src="images/resonant-response.png" >}}
+
+7) To simulate the signal processing through the circuit, we need to obtain the input impedance. To do this, a load impedance must be established. In this case, we will analyze an open circuit, so:
+
+    <div>
+    $$
+    Z_L = \infty
+    $$
+
+    If the load impedance is infinite, then the expression for the input impedance is:
+
+    $$
+    Z_{in} = \frac{t_{11}}{t_{21}}
+    $$
+    </div>
+
+    ```python
+    # Input impedance
+    input_impedance = total_tmatrix[0,0,:] / total_tmatrix[1,0,:]
+    ```
+
+8) With the input impedance defined, we can find the output voltage as a function of the input voltage chosen. In this case, the system is excited with white noise of 2.83 $V_{rms}$.
+
+    ```python
+    # White noise of 2.83 V RMS
+    input_voltage = 2.83
+
+    output_voltage = (total_tmatrix[1,1,:] - total_tmatrix[0,1,:]/input_impedance) * input_voltage
+    ```
+
+9) When plotting the output, the unit of measurement is the same as the input unit of measurement ($V_{rms}$).
+
+    ```python
+    from matplotlib import pyplot as plt
+
+    fig, ax1 = plt.subplots(figsize=(10,5))
+
+    # Plot for Gain
+    ax1.plot(freq_array, np.abs(output_voltage), label="Magnitude", color='b')
+    ax1.set_xscale('log')
+    ax1.set_xlabel("Frequency [Hz]")
+    ax1.set_ylabel(r"Output voltage [$V_{\mathrm{rms}}$]", color='b')
+    ax1.set_title(r"System's output to white noise ($2.83~V_{\mathrm{rms}}$)")
+    ax1.tick_params(axis='y', labelcolor='b')
+    ax1.set_ylim(top=3)
+    ax1.grid(True, which="both", ls="--")
+
+    ax2 = ax1.twinx()
+    color = 'tab:red'
+
+    ax2.plot(freq_array, np.angle(output_voltage)*180/np.pi, label="Phase", color=color)
+    ax2.set_ylabel("Phase [º]", color=color)
+    ax2.set_ylim(top=95, bottom=-95)
+    ax2.tick_params(axis='y', labelcolor=color)
+    ax2.set_yticks(np.arange(-90, 100, 30))
+    ax2.set_yticklabels(np.arange(-90, 100, 30))
+    lines, labels = ax1.get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    ax1.legend(lines + lines2, labels + labels2, loc='best')
+
+    fig.tight_layout()
+    plt.grid(True, which="both", ls="--")
+    plt.show()
+    ```
+
+    {{< figure src="images/system-output.png" >}}
