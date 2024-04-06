@@ -30,7 +30,7 @@ $$ T =\begin{bmatrix} t_{11} & t_{12} \\ t_{21} & t_{22} \end{bmatrix} $$ where 
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/blog\/posts\/intro_to_transmission_matrices\/"
-        },"genre": "posts","wordcount":  2636 ,
+        },"genre": "posts","wordcount":  2633 ,
         "url": "http:\/\/localhost:1313\/blog\/posts\/intro_to_transmission_matrices\/","datePublished": "2024-04-01T01:06:37-03:00","dateModified": "2024-04-01T01:06:37-03:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -78,7 +78,7 @@ $$ T =\begin{bmatrix} t_{11} & t_{12} \\ t_{21} & t_{22} \end{bmatrix} $$ where 
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Introduction to Transmission Matrices</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://linkedin.com/in/nahuelpassano" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Nahuel Passano</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-01">2024-04-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2636 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-01">2024-04-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2633 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;13 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -262,7 +262,7 @@ $$
   <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Resistive_divider.png" width="30%">
 </p>
 <p>The idea is to obtain an equation that relates the output quantities (output voltage and output current) in terms of the input quantities (input voltage and input current).</p>
-<p>First, we need to define the matrices for both elements. In this case, $R_1$ is in series, but $R_2$ is in parallel with the output, so its transmission matrix should be of the admittance type.</p>
+<p>First, we need to define the matrices for both elements. In this case, $R_1$ is in series, but $R_2$ is in parallel, so its transmission matrix should be of the admittance type.</p>
 <div>
 $$
     T_{R_1} =
@@ -433,10 +433,10 @@ $$
 <p>The symbols to be used are defined and the transmission matrices for the circuit elements are generated.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">X_C1</span><span class="p">,</span> <span class="n">X_C2</span><span class="p">,</span> <span class="n">R1</span><span class="p">,</span> <span class="n">R2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;X_C1 X_C2 R1 R2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Z_C1</span><span class="p">,</span> <span class="n">Z_C2</span><span class="p">,</span> <span class="n">R1</span><span class="p">,</span> <span class="n">R2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;Z_C1 Z_C2 R1 R2&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">X_C1_tmatrix</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="n">X_C1</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="n">Z_C1_tmatrix</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="n">Z_C1</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
@@ -450,15 +450,15 @@ $$
 </span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">X_C2_tmatrix</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl"><span class="n">Z_C2_tmatrix</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">X_C2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">Z_C2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span></code></pre></div></li>
 <li>
 <p>The total transmission is calculated by the successive multiplication of matrices. In this case, the magnitude and phase response of the system voltage is sought, so the expression for the voltage gain must be obtained from the transmission matrix.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Total transmission matrix</span>
-</span></span><span class="line"><span class="cl"><span class="n">total_tmatrix</span> <span class="o">=</span> <span class="n">X_C1_tmatrix</span> <span class="o">*</span> <span class="n">R1_tmatrix</span> <span class="o">*</span> <span class="n">R2_tmatrix</span> <span class="o">*</span> <span class="n">X_C2_tmatrix</span>
+</span></span><span class="line"><span class="cl"><span class="n">total_tmatrix</span> <span class="o">=</span> <span class="n">Z_C1_tmatrix</span> <span class="o">*</span> <span class="n">R1_tmatrix</span> <span class="o">*</span> <span class="n">R2_tmatrix</span> <span class="o">*</span> <span class="n">Z_C2_tmatrix</span>
 </span></span><span class="line"><span class="cl"><span class="n">display</span><span class="p">(</span><span class="n">total_tmatrix</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Inverse total transmission matrix</span>
@@ -500,8 +500,8 @@ $$
 </span></span><span class="line"><span class="cl"><span class="c1"># Impedances as function of frequency</span>
 </span></span><span class="line"><span class="cl"><span class="n">R1_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">freq_bins</span><span class="p">)</span><span class="o">*</span><span class="n">R1_value</span>
 </span></span><span class="line"><span class="cl"><span class="n">R2_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">freq_bins</span><span class="p">)</span><span class="o">*</span><span class="n">R2_value</span>
-</span></span><span class="line"><span class="cl"><span class="n">X_C1_array</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">C1_value</span><span class="o">*</span><span class="n">angular_freq_array</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl"><span class="n">X_C2_array</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">C2_value</span><span class="o">*</span><span class="n">angular_freq_array</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Z_C1_array</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">C1_value</span><span class="o">*</span><span class="n">angular_freq_array</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="n">Z_C2_array</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">C2_value</span><span class="o">*</span><span class="n">angular_freq_array</span><span class="p">)</span>
 </span></span></code></pre></div></li>
 <li>
 <p>Finally, the symbolic values of the gain expression must be replaced by the generated impedance vectors.</p>
@@ -513,8 +513,8 @@ $$
 </span></span><span class="line"><span class="cl">    <span class="n">voltage_gain_i</span> <span class="o">=</span> <span class="n">voltage_gain</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">R1</span><span class="p">:</span> <span class="n">R1_array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-</span></span><span class="line"><span class="cl">            <span class="n">X_C1</span><span class="p">:</span> <span class="n">X_C1_array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-</span></span><span class="line"><span class="cl">            <span class="n">X_C2</span><span class="p">:</span> <span class="n">X_C2_array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Z_C1</span><span class="p">:</span> <span class="n">Z_C1_array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Z_C2</span><span class="p">:</span> <span class="n">Z_C2_array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">            <span class="n">R2</span><span class="p">:</span> <span class="n">R2_array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>

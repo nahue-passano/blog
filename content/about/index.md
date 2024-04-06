@@ -3,6 +3,8 @@ comment: false
 ---
 # About me
 
+{{< figure src="about-me.png" title="Presenting advances of my thesis work at the XVIII Argentinian Congress of Acoustics">}}
+
 🧠 I am an Audio DSP and Machine Learning Engineer currently focused on applying artificial intelligence in the embedded audio industry.
 
 👁️ I also possess experience in end-to-end computer vision projects and applying AI in the healthcare sector, particularly for ALS patient analysis and prognosis. 
