@@ -201,7 +201,7 @@ Let's consider analyzing the following resistive divider through the transmissio
 
 The idea is to obtain an equation that relates the output quantities (output voltage and output current) in terms of the input quantities (input voltage and input current).
 
-First, we need to define the matrices for both elements. In this case, $R_1$ is in series, but $R_2$ is in parallel with the output, so its transmission matrix should be of the admittance type.
+First, we need to define the matrices for both elements. In this case, $R_1$ is in series, but $R_2$ is in parallel, so its transmission matrix should be of the admittance type.
 
 <div>
 $$
@@ -391,10 +391,10 @@ In Python, all this calculation can be done in several ways. One of them is usin
     ```python
     import sympy as sp
 
-    X_C1, X_C2, R1, R2 = sp.symbols('X_C1 X_C2 R1 R2')
+    Z_C1, Z_C2, R1, R2 = sp.symbols('Z_C1 Z_C2 R1 R2')
 
-    X_C1_tmatrix = sp.Matrix(
-        [[1, X_C1],
+    Z_C1_tmatrix = sp.Matrix(
+        [[1, Z_C1],
         [0, 1]]
     )
 
@@ -408,9 +408,9 @@ In Python, all this calculation can be done in several ways. One of them is usin
         [0, 1]]
         )
 
-    X_C2_tmatrix = sp.Matrix(
+    Z_C2_tmatrix = sp.Matrix(
         [[1, 0],
-        [1/X_C2, 1]]
+        [1/Z_C2, 1]]
     )
     ```
 
@@ -418,7 +418,7 @@ In Python, all this calculation can be done in several ways. One of them is usin
 
     ```python
     # Total transmission matrix
-    total_tmatrix = X_C1_tmatrix * R1_tmatrix * R2_tmatrix * X_C2_tmatrix
+    total_tmatrix = Z_C1_tmatrix * R1_tmatrix * R2_tmatrix * Z_C2_tmatrix
     display(total_tmatrix)
 
     # Inverse total transmission matrix
@@ -464,8 +464,8 @@ In Python, all this calculation can be done in several ways. One of them is usin
     # Impedances as function of frequency
     R1_array = np.ones(freq_bins)*R1_value
     R2_array = np.ones(freq_bins)*R2_value
-    X_C1_array = 1/(1j*C1_value*angular_freq_array) 
-    X_C2_array = 1/(1j*C2_value*angular_freq_array)
+    Z_C1_array = 1/(1j*C1_value*angular_freq_array) 
+    Z_C2_array = 1/(1j*C2_value*angular_freq_array)
     ```
 
 4) Finally, the symbolic values of the gain expression must be replaced by the generated impedance vectors.
@@ -479,8 +479,8 @@ In Python, all this calculation can be done in several ways. One of them is usin
         voltage_gain_i = voltage_gain.subs(
             {
                 R1: R1_array[i],
-                X_C1: X_C1_array[i],
-                X_C2: X_C2_array[i],
+                Z_C1: Z_C1_array[i],
+                Z_C2: Z_C2_array[i],
                 R2: R2_array[i],
                 
             }
