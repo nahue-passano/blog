@@ -23,8 +23,8 @@ where each value in the matrix $T$ represents a specific relationship between th
 $$
     \begin{align*}
         t_{11} &= \frac{v_{in}}{v_{out}} \bigg|_{i_{out} = 0} \hspace{8mm} \rightarrow \hspace{8mm} (1 / G_v)\\
-        t_{12} &= \frac{v_{in}}{i_{out}} \bigg|_{i_{out} = 0} \hspace{8mm} \rightarrow \hspace{8mm} (1 / G_Y)\\
-        t_{21} &= \frac{i_{in}}{v_{out}} \bigg|_{v_{out} = 0} \hspace{8mm} \rightarrow \hspace{8mm} (1 / G_Z)\\
+        t_{12} &= \frac{v_{in}}{i_{out}} \bigg|_{v_{out} = 0} \hspace{8mm} \rightarrow \hspace{8mm} (1 / G_Y)\\
+        t_{21} &= \frac{i_{in}}{v_{out}} \bigg|_{i_{out} = 0} \hspace{8mm} \rightarrow \hspace{8mm} (1 / G_Z)\\
         t_{22} &= \frac{i_{in}}{i_{out}} \bigg|_{v_{out} = 0} \hspace{8mm} \rightarrow \hspace{8mm} (1 / G_i)\\
     \end{align*}
 $$
