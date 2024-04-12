@@ -570,8 +570,8 @@ For the resonant circuit, we will approach the resolution in a vectorized way wi
     C_value = 1e-6
 
     R_array = np.ones(freq_bins)*R_value
-    X_L_array = 1j*angular_freq_array*L_value
-    X_C_array = 1/(1j*angular_freq_array*C_value) 
+    Z_L_array = 1j*angular_freq_array*L_value
+    Z_C_array = 1/(1j*angular_freq_array*C_value) 
     ```
 
 3) Once the impedances are defined, the transmission matrices of each element are formed. To operate in a vectorized way, the matrices will now have a shape of:
@@ -583,13 +583,13 @@ For the resonant circuit, we will approach the resolution in a vectorized way wi
     </div>
 
     ```python
-    X_L_tmatrix = np.array(
-        [[np.ones(freq_bins), X_L_array],
+    Z_L_tmatrix = np.array(
+        [[np.ones(freq_bins), Z_L_array],
         [np.zeros(freq_bins), np.ones(freq_bins)]]
     )
 
-    X_C_tmatrix = np.array(
-        [[np.ones(freq_bins), X_C_array],
+    Z_C_tmatrix = np.array(
+        [[np.ones(freq_bins), Z_C_array],
         [np.zeros(freq_bins), np.ones(freq_bins)]]
     )
 
@@ -637,7 +637,7 @@ For the resonant circuit, we will approach the resolution in a vectorized way wi
     Now we can obtain the transfer function by successively multiplying the transmission matrices. The disadvantage of working in a vectorized way rather than symbolically is that we don't have the ability to visualize the equations in terms of the components; now we will simply observe a complex matrix.
 
     ```python
-    total_tmatrix = layer_wise_dot_product(X_C_tmatrix, X_L_tmatrix, R_tmatrix)
+    total_tmatrix = layer_wise_dot_product(Z_C_tmatrix, Z_L_tmatrix, R_tmatrix)
 
     display(total_tmatrix.shape, total_tmatrix)
 
